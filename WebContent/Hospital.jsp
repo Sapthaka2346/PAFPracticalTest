@@ -13,31 +13,30 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Management</title>
+<title>Hospital Management</title>
 <link rel="stylesheet" href="Views/bootstrap.min.css">
 <script src="Components/jquery-3.4.0.min.js"></script>
-<script src="Components/users.js"></script>
+<script src="Components/Hospitals.js"></script>
 </head>
 <body>
-	<h1>User Management</h1>
+	<h1>Hospital Management</h1>
 
 
 
-	<form id="formUser" name="formUser" method="post" action="User.jsp">
-		Username : <input id="username" name="username" type="text"
-			class="form-control form-control-sm"> <br> Phone No : <input
-			id="phoneNo" name="phoneNo" type="text"
-			class="form-control form-control-sm"> <br> Age : <input
-			id="age" name="age" type="text" class="form-control form-control-sm">
-		<br> Address : <input id="address" name="address" type="text"
-			class="form-control form-control-sm"> <br> Gender : <input
-			id="gender" name="gender" type="text"
-			class="form-control form-control-sm"> <br> Email : <input
-			id="email" name="email" type="text"
-			class="form-control form-control-sm"> <br> <input
+	<form id="formHospital" name="formHospital" method="post" action="Hospital.jsp">
+		Hospital Name : <input id="H_Name" name="H_Name" type="text"
+			class="form-control form-control-sm"> <br> Hospital Address : <input
+			id="H_Address" name="H_Address" type="text"
+			class="form-control form-control-sm"> <br> Hospital City : <input
+			id="H_City" name="H_City" type="text" class="form-control form-control-sm">
+		<br> Hospital Phone Number : <input id="H_phonenumber" name="H_phonenumber" type="text"
+			class="form-control form-control-sm"> <br> Hospital Description : <input
+			id="H_Desc" name="H_Desc" type="text"
+			class="form-control form-control-sm"> 
+			 <input
 			id="btnSave" name="btnSave" type="button" value="Save"
 			class="btn btn-primary"> <input type="hidden"
-			id="hidUserIDSave" name="hidUserIDSave" value="">
+			id="hidHospitalIDSave" name="hidHospitalIDSave" value="">
 	</form>
 
 	<div id="alertSuccess" class="alert alert-success"></div>
@@ -45,8 +44,8 @@
 	<br>
 	<div id="divUsersGrid">
 		<%
-			User UserObj = new User();
-		out.print(UserObj.readUsers());
+			Hospital UserObj = new Hospital();
+		out.print(UserObj.readItems());
 		%>
 	</div>
 

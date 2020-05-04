@@ -16,7 +16,7 @@ import model.Hospital;
 /**
  * Servlet implementation class UsersAPI
  */
-@WebServlet("/UsersAPI")
+@WebServlet("/HospitalsAPI")
 public class HospitalsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Hospital userObj = new Hospital();
@@ -59,7 +59,7 @@ public class HospitalsAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		String output = userObj.updateItem(paras.get("hidHopsitalIDUpdate").toString(), paras.get("H_Name").toString(),
+		String output = userObj.updateItem(paras.get("hidHopsitalIDSave").toString(), paras.get("H_Name").toString(),
 				paras.get("H_Address").toString(), paras.get("H_City").toString(), paras.get("H_phonenumber").toString(), paras.get("H_Desc").toString());
 		response.getWriter().write(output);
 	}
@@ -71,7 +71,7 @@ public class HospitalsAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		 String output = userObj.deleteItem(paras.get("Hospital_id").toString());
+		 String output = userObj.deleteItem(paras.get("Hospital_ID").toString());
 		response.getWriter().write(output);
 	}
 

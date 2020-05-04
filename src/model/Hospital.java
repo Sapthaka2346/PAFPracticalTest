@@ -49,8 +49,8 @@ public class Hospital {
 			preparedStmt.execute();
 			con.close();
 			//output = "Inserted successfully";
-			String newUsers = readItems();
-			 output = "{\"status\":\"success\", \"data\": \"" +newUsers + "\"}";
+			String newHospitals = readItems();
+			 output = "{\"status\":\"success\", \"data\": \"" +newHospitals + "\"}";
 			
 		} catch (Exception e) {
 			//output = "Error while inserting the user.";
@@ -68,7 +68,7 @@ public class Hospital {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>Hospital_ID</th><th>H_Name</th><th>H_Address</th><th>H_City<th>H_phonenumber</th><th>H_Desc</th></th><th>Update</th><th>Remove</th></tr>";
+			output = "<table border=\"1\"><tr><th>H_Name</th><th>H_Address</th><th>H_City<th>H_phonenumber</th><th>H_Desc</th></th><th>Update</th><th>Remove</th></tr>";
 			String query = "select * from reg_hospital";
 			Statement stmt = (Statement) con.createStatement();
 			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
@@ -86,14 +86,14 @@ public class Hospital {
 				/*output += "<tr><td><input id=\"hidUserIDUpdate\"name=\"hidUserIDUpdate\"type=\"hidden\" value=\""
 						+ userID + "\">" + userName + "</td>";*/
 				
-				output += "<tr><td>" + Hospital_ID + "</td>";
-				output += "<td>" + H_Name + "</td>";
+//				output += "<tr><td>" + Hospital_ID + "</td>";
+//				output += "<td>" + H_Name + "</td>";
 				output += "<td>" + H_Address + "</td>";
 				output += "<td>" + H_City + "</td>";
 				output += "<td>" + H_phonenumber + "</td>";
 				output += "<td>" + H_Desc + "</td>";
 				// buttons
-				output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td><td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-userid='"
+				output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td><td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-HospitalID='"
 						 + Hospital_ID + "'>" + "</td></tr>";
 				
 				/*output += "<td><input name=\"btnUpdate\"type=\"button\" value=\"Update\"class=\" btnUpdate btn btn-secondary\"></td><td><form method=\"post\" action=\"User.jsp\"><input name=\"btnRemove\" type=\"submit\"value=\"Remove\" class=\"btn btn-danger\"><input name=\"hidUserIDDelete\" type=\"hidden\"value=\""
@@ -126,7 +126,7 @@ public class Hospital {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE users SET username=?,phoneNo=?,age=?,address=?,gender=?,email=?WHERE user_id=?";
+			String query = "UPDATE reg_hospital SET H_Name=?,H_Address=?,H_City=?,H_phonenumber=?,H_Desc=? WHERE Hospital_ID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, H_Name);
@@ -158,7 +158,7 @@ public class Hospital {
 				return "Error while connecting to the database for deleting.";
 			}
 			// create a prepared statement
-			String query = "delete from users where user_id=?";
+			String query = "delete from reg_hopsital where Hospital_ID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setInt(1, Integer.parseInt(Hospital_ID));
@@ -171,7 +171,7 @@ public class Hospital {
 			
 		} catch (Exception e) {
 			//output = "Error while deleting the user.";
-			output = "{\"status\":\"error\", \"data\":\"Error while deleting the user.\"}";
+			output = "{\"status\":\"error\", \"data\":\"Error while deleting the Hospital.\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
