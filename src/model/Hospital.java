@@ -27,7 +27,7 @@ public class Hospital {
 		return con;
 	}
 
-	public String readItems(String name, String phone, String age, String address, String gender, String email) {
+	public String insertItem( String H_Name, String H_Address, String H_City,String H_phonenumber,String H_Desc) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -35,17 +35,16 @@ public class Hospital {
 				return "Error while connecting to the database for inserting.";
 			}
 			// create a prepared statement
-			String query = " insert into users(`user_id`,`username`,`phoneNo`,`age`,`address`,`gender`,`email`)"
-					+ " values (?, ?, ?, ?, ?, ?, ?)";
+			String query = " insert into reg_Hospital(`Hospital_ID`,`H_Name`,`H_Address`,`H_City`,`H_phonenumber`,`H_Desc`)"
+					+ " values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(2, name);
-			preparedStmt.setString(3, phone);
-			preparedStmt.setInt(4, Integer.parseInt(age));
-			preparedStmt.setString(5, address);
-			preparedStmt.setString(6, gender);
-			preparedStmt.setString(7, email);
+			preparedStmt.setString(2, H_Name);
+			preparedStmt.setString(3, H_Address);
+			preparedStmt.setString(4, H_City);
+			preparedStmt.setString(5, H_phonenumber);
+			preparedStmt.setString(6, H_Desc);
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
@@ -55,13 +54,13 @@ public class Hospital {
 			
 		} catch (Exception e) {
 			//output = "Error while inserting the user.";
-			output = "{\"status\":\"error\", \"data\":\"Error while inserting the user.\"}";
+			output = "{\"status\":\"error\", \"data\":\"Error while inserting the Hospital.\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 
-	public String readUsers() {
+	public String readItems() {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -69,33 +68,33 @@ public class Hospital {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>User Name</th><th>Phone No</th><th>Age</th><th>Address</th><th>Gender</th><th>Email</th></tr>";
-			String query = "select * from users";
+			output = "<table border=\"1\"><tr><th>Hospital_ID</th><th>H_Name</th><th>H_Address</th><th>H_City<th>H_phonenumber</th><th>H_Desc</th></th><th>Update</th><th>Remove</th></tr>";
+			String query = "select * from reg_hospital";
 			Statement stmt = (Statement) con.createStatement();
 			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
 			// iterate through the rows in the result set
 			while (rs.next()) {
-				String userID = Integer.toString(rs.getInt("user_id"));
-				String userName = rs.getString("username");
-				String phoneNo = rs.getString("phoneNo");
-				String age = Integer.toString(rs.getInt("age"));
-				String address = rs.getString("address");
-				String gender = rs.getString("gender");
-				String email = rs.getString("email");
+				String Hospital_ID = Integer.toString(rs.getInt("Hospital_ID"));
+				String H_Name = rs.getString("H_Name");
+				String H_Address = rs.getString("H_Address");
+				String H_City = rs.getString("H_City");
+				String H_phonenumber = Integer.toString(rs.getInt("H_phonenumber"));
+				String H_Desc = rs.getString("H_Desc");
 				// Add into the html table
-				output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + userID + "'>" + userName + "</td>";
+				output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + H_Name + "</td>";
 				
 				/*output += "<tr><td><input id=\"hidUserIDUpdate\"name=\"hidUserIDUpdate\"type=\"hidden\" value=\""
 						+ userID + "\">" + userName + "</td>";*/
 				
-				output += "<td>" + phoneNo + "</td>";
-				output += "<td>" + age + "</td>";
-				output += "<td>" + address + "</td>";
-				output += "<td>" + gender + "</td>";
-				output += "<td>" + email + "</td>";
+				output += "<tr><td>" + Hospital_ID + "</td>";
+				output += "<td>" + H_Name + "</td>";
+				output += "<td>" + H_Address + "</td>";
+				output += "<td>" + H_City + "</td>";
+				output += "<td>" + H_phonenumber + "</td>";
+				output += "<td>" + H_Desc + "</td>";
 				// buttons
 				output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td><td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-userid='"
-						 + userID + "'>" + "</td></tr>";
+						 + Hospital_ID + "'>" + "</td></tr>";
 				
 				/*output += "<td><input name=\"btnUpdate\"type=\"button\" value=\"Update\"class=\" btnUpdate btn btn-secondary\"></td><td><form method=\"post\" action=\"User.jsp\"><input name=\"btnRemove\" type=\"submit\"value=\"Remove\" class=\"btn btn-danger\"><input name=\"hidUserIDDelete\" type=\"hidden\"value=\""
 						+ userID + "\">" + "</form></td></tr>";*/
@@ -119,8 +118,7 @@ public class Hospital {
 		return output;
 	}
 
-	public String updateUserDetails(String ID, String name, String phone, String age, String address, String gender,
-			String email) {
+	public String updateItem(String Hospital_ID ,String H_Name, String H_Address, String H_City,String H_phonenumber,String H_Desc) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -131,13 +129,11 @@ public class Hospital {
 			String query = "UPDATE users SET username=?,phoneNo=?,age=?,address=?,gender=?,email=?WHERE user_id=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
-			preparedStmt.setString(1, name);
-			preparedStmt.setString(2, phone);
-			preparedStmt.setInt(3, Integer.parseInt(age));
-			preparedStmt.setString(4, address);
-			preparedStmt.setString(5, gender);
-			preparedStmt.setString(6, email);
-			preparedStmt.setInt(7, Integer.parseInt(ID));
+			preparedStmt.setString(1, H_Name);
+			preparedStmt.setString(2, H_Address);
+			preparedStmt.setString(3, H_City);
+			preparedStmt.setString(4, H_phonenumber);
+			preparedStmt.setString(5, H_Desc);
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
@@ -154,7 +150,7 @@ public class Hospital {
 		return output;
 	}
 
-	public String deleteUsers(String user_id) {
+	public String deleteItem(String Hospital_ID) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -165,7 +161,7 @@ public class Hospital {
 			String query = "delete from users where user_id=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
-			preparedStmt.setInt(1, Integer.parseInt(user_id));
+			preparedStmt.setInt(1, Integer.parseInt(Hospital_ID));
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
@@ -181,7 +177,55 @@ public class Hospital {
 		return output;
 	}
 
-	public String readSelectedUsers(String user_id) {
+//	public String readSelectedUsers(String user_id) {
+//		String output = "";
+//		try {
+//			Connection con = connect();
+//			if (con == null) {
+//				return "Error while connecting to the database for reading.";
+//			}
+//			// Prepare the html table to be displayed
+//			output = "<table border=\"1\"><tr><th>User Name</th><th>Phone No</th><th>Age</th><th>Address</th><th>Gender</th><th>Email</th></tr>";
+//			String query = "select * from users where user_id=" + user_id;
+//			Statement stmt = (Statement) con.createStatement();
+//			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
+//			// iterate through the rows in the result set
+//			while (rs.next()) {
+//				String userID = Integer.toString(rs.getInt("user_id"));
+//				String userName = rs.getString("username");
+//				String phoneNo = rs.getString("phoneNo");
+//				String age = Integer.toString(rs.getInt("age"));
+//				String address = rs.getString("address");
+//				String gender = rs.getString("gender");
+//				String email = rs.getString("email");
+//				// Add into the html table
+//				output += "<tr><td>" + userName + "</td>";
+//				output += "<td>" + phoneNo + "</td>";
+//				output += "<td>" + age + "</td>";
+//				output += "<td>" + address + "</td>";
+//				output += "<td>" + gender + "</td>";
+//				output += "<td>" + email + "</td>";
+//				// buttons
+//				/*
+//				 * output +=
+//				 * "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
+//				 * + "<td><form method=\"post\" action=\"items.jsp\">" +
+//				 * "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
+//				 * + "<input name=\"userID\" type=\"hidden\" value=\"" + userID + "\">" +
+//				 * "</form></td></tr>";
+//				 */
+//			}
+//			con.close();
+//			// Complete the html table
+//			output += "</table>";
+//		} catch (Exception e) {
+//			output = "Error while reading the selected user.";
+//			System.err.println(e.getMessage());
+//		}
+//		return output;
+//	}
+
+	public String readHospitalAppointmentsHistory(String Hospital_ID1) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -189,77 +233,31 @@ public class Hospital {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>User Name</th><th>Phone No</th><th>Age</th><th>Address</th><th>Gender</th><th>Email</th></tr>";
-			String query = "select * from users where user_id=" + user_id;
+			 output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Appointment type</th><th>Appointment no</th><th>Appointment Date</th><th><Appointment Description</th><th>User ID</th><th>Doctor ID</th><th>Hospital ID</th><th>Update</th><th>Remove</th></tr>";
+			String query = "select * from payment where user_id="+ Hospital_ID1;
 			Statement stmt = (Statement) con.createStatement();
 			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
 			// iterate through the rows in the result set
 			while (rs.next()) {
-				String userID = Integer.toString(rs.getInt("user_id"));
-				String userName = rs.getString("username");
-				String phoneNo = rs.getString("phoneNo");
-				String age = Integer.toString(rs.getInt("age"));
-				String address = rs.getString("address");
-				String gender = rs.getString("gender");
-				String email = rs.getString("email");
-				// Add into the html table
-				output += "<tr><td>" + userName + "</td>";
-				output += "<td>" + phoneNo + "</td>";
-				output += "<td>" + age + "</td>";
-				output += "<td>" + address + "</td>";
-				output += "<td>" + gender + "</td>";
-				output += "<td>" + email + "</td>";
-				// buttons
-				/*
-				 * output +=
-				 * "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
-				 * + "<td><form method=\"post\" action=\"items.jsp\">" +
-				 * "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-				 * + "<input name=\"userID\" type=\"hidden\" value=\"" + userID + "\">" +
-				 * "</form></td></tr>";
-				 */
-			}
-			con.close();
-			// Complete the html table
-			output += "</table>";
-		} catch (Exception e) {
-			output = "Error while reading the selected user.";
-			System.err.println(e.getMessage());
-		}
-		return output;
-	}
-
-	public String readUsersPaymentHistory(String user_id) {
-		String output = "";
-		try {
-			Connection con = connect();
-			if (con == null) {
-				return "Error while connecting to the database for reading.";
-			}
-			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>Payment ID</th><th>User ID</th><th>Paymment Method</th><th>Payment time</th><th>Purpose</th><th>Amount</th><th>Statues</th></tr>";
-			String query = "select * from payment where user_id="+ user_id;
-			Statement stmt = (Statement) con.createStatement();
-			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
-			// iterate through the rows in the result set
-			while (rs.next()) {
-				String paymentid = Integer.toString(rs.getInt("payment_id"));
-				String userId = Integer.toString(rs.getInt("user_id"));
-				String paymentMethod = rs.getString("Payment_method");
-				DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-				String paymentTime = dateFormat.format(rs.getDate("paid_time"));
-				String purpose = rs.getString("purpose");
-				String Amount = Float.toString(rs.getFloat("amount"));
-				String statues = rs.getString("status");
+				String Appointment_ID = Integer.toString(rs.getInt("Appointment_ID"));  
+			       String Appointment_type = rs.getString("Appointment_type");   
+			       String Appointment_no = rs.getString("Appointment_no");      
+			       String Appointment_date = rs.getString("Appointment_date");
+			       String Appointment_description = rs.getString(("Appointment_description")); 
+			       String Ruser_ID = rs.getString("Ruser_ID");
+			       String Rdoctor_ID = rs.getString("Rdoctor_ID");
+			       String Hospital_ID = rs.getString("Hospital_ID");
+		   
 
 				// Add into the html table
-				output += "<tr><td>" + paymentid + "</td>";
-				output += "<td>" + userId + "</td>";
-				output += "<td>" + paymentMethod + "</td>";
-				output += "<td>" + paymentTime + "</td>";
-				output += "<td>" + purpose + "</td>";
-				output += "<td>" + Amount + "</td>";
-				output += "<td>" + statues + "</td>";
+			       output += "<tr><td>" + Appointment_ID + "</td>";     
+			       output += "<td>" + Appointment_type + "</td>";  
+			       output += "<td>" + Appointment_no + "</td>";        
+			       output += "<td>" + Appointment_date + "</td>"; 
+			       output += "<td>" + Appointment_description + "</td>";
+			       output += "<td>" + Ruser_ID + "</td>";     
+			       output += "<td>" + Rdoctor_ID + "</td>";    
+			       output += "<td>" + Hospital_ID + "</td>";
 			}
 			con.close();
 			// Complete the html table
@@ -271,55 +269,55 @@ public class Hospital {
 		return output;
 	}
 	
-	public String readUsersAppointmentsHistory(String userid) {
-
-		String output = "";
-		try {
-			Connection con = connect();
-			if (con == null) {
-				return "Error while connecting to the database for reading.";
-			}
-			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Patient ID</th><th>Patient Name</th><th>Doctor ID</th><th>Doctor Name</th><th>Hospital ID</th><th>Hospital Name</th><th>Appointment Time</th><th>Appointment Date</th><th>Ward No</th></tr>";
-			String query = "select * from appointments where user_id="+ userid;
-			Statement stmt = (Statement) con.createStatement();
-			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
-			// iterate through the rows in the result set
-			while (rs.next())
-			{
-				String appointment_id = Integer.toString(rs.getInt("appointment_id"));
-				String user_id = Integer.toString(rs.getInt("user_id"));
-				String username = rs.getString("username");
-				String doctor_id = Integer.toString(rs.getInt("doctor_id"));
-				String doctor_name = rs.getString("doctor_name");
-				String hospital_id = Integer.toString(rs.getInt("hospital_id"));
-				String hospital_name = rs.getString("hospital_name");
-				String appointment_time = rs.getString("appointment_time");
-				String appointment_date = rs.getString("appointment_date");
-				String WardNo = rs.getString("WardNo");
-	
-				// Add into the html table
-				output += "<tr><td>" + appointment_id + "</td>";
-				output += "<td>" + user_id + "</td>";
-				output += "<td>" + username + "</td>";
-				output += "<td>" + doctor_id + "</td>";
-				output += "<td>" + doctor_name + "</td>";
-				output += "<td>" + hospital_id + "</td>";
-				output += "<td>" + hospital_name + "</td>";
-				output += "<td>" + appointment_time + "</td>";
-				output += "<td>" + appointment_date + "</td>";
-				output += "<td>" + WardNo + "</td>";
-	
-			}
-			con.close();
-			// Complete the html table
-			output += "</table>";
-		} catch (Exception e) {
-			output = "Error while reading the users appointments.";
-			System.err.println(e.getMessage());
-		}
-		return output;
-	}
+//	public String readUsersAppointmentsHistory(String userid) {
+//
+//		String output = "";
+//		try {
+//			Connection con = connect();
+//			if (con == null) {
+//				return "Error while connecting to the database for reading.";
+//			}
+//			// Prepare the html table to be displayed
+//			output = "<table border=\"1\"><tr><th>Appointment ID</th><th>Patient ID</th><th>Patient Name</th><th>Doctor ID</th><th>Doctor Name</th><th>Hospital ID</th><th>Hospital Name</th><th>Appointment Time</th><th>Appointment Date</th><th>Ward No</th></tr>";
+//			String query = "select * from appointments where user_id="+ userid;
+//			Statement stmt = (Statement) con.createStatement();
+//			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
+//			// iterate through the rows in the result set
+//			while (rs.next())
+//			{
+//				String appointment_id = Integer.toString(rs.getInt("appointment_id"));
+//				String user_id = Integer.toString(rs.getInt("user_id"));
+//				String username = rs.getString("username");
+//				String doctor_id = Integer.toString(rs.getInt("doctor_id"));
+//				String doctor_name = rs.getString("doctor_name");
+//				String hospital_id = Integer.toString(rs.getInt("hospital_id"));
+//				String hospital_name = rs.getString("hospital_name");
+//				String appointment_time = rs.getString("appointment_time");
+//				String appointment_date = rs.getString("appointment_date");
+//				String WardNo = rs.getString("WardNo");
+//	
+//				// Add into the html table
+//				output += "<tr><td>" + appointment_id + "</td>";
+//				output += "<td>" + user_id + "</td>";
+//				output += "<td>" + username + "</td>";
+//				output += "<td>" + doctor_id + "</td>";
+//				output += "<td>" + doctor_name + "</td>";
+//				output += "<td>" + hospital_id + "</td>";
+//				output += "<td>" + hospital_name + "</td>";
+//				output += "<td>" + appointment_time + "</td>";
+//				output += "<td>" + appointment_date + "</td>";
+//				output += "<td>" + WardNo + "</td>";
+//	
+//			}
+//			con.close();
+//			// Complete the html table
+//			output += "</table>";
+//		} catch (Exception e) {
+//			output = "Error while reading the users appointments.";
+//			System.err.println(e.getMessage());
+//		}
+//		return output;
+//	}
 
 	public String userLogin(String username, String password) {
 		String output = "";

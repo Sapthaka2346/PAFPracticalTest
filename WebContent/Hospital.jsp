@@ -4,7 +4,7 @@
 <%@ page import="javax.servlet.http.*"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="model.User"%>
+<%@ page import="model.Hospital"%>
 
 
 
