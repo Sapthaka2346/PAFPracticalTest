@@ -49,7 +49,7 @@ public class Hospital {
 			preparedStmt.execute();
 			con.close();
 			//output = "Inserted successfully";
-			String newUsers = readUsers();
+			String newUsers = readItems();
 			 output = "{\"status\":\"success\", \"data\": \"" +newUsers + "\"}";
 			
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class Hospital {
 				String H_phonenumber = Integer.toString(rs.getInt("H_phonenumber"));
 				String H_Desc = rs.getString("H_Desc");
 				// Add into the html table
-				output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + H_Name + "</td>";
+				output += "<tr><td><input id='hidHopsitalIDUpdate' name='hidHopsitalIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + H_Name + "</td>";
 				
 				/*output += "<tr><td><input id=\"hidUserIDUpdate\"name=\"hidUserIDUpdate\"type=\"hidden\" value=\""
 						+ userID + "\">" + userName + "</td>";*/
@@ -139,7 +139,7 @@ public class Hospital {
 			con.close();
 			//output = "Updated successfully";
 			
-			String newUsers = readUsers();
+			String newUsers = readItems();
 			 output = "{\"status\":\"success\", \"data\": \"" +newUsers + "\"}";
 			
 		} catch (Exception e) {
@@ -166,7 +166,7 @@ public class Hospital {
 			preparedStmt.execute();
 			con.close();
 			//output = "Deleted successfully";
-			String newUsers = readUsers();
+			String newUsers = readItems();
 			 output = "{\"status\":\"success\", \"data\": \"" +newUsers + "\"}";
 			
 		} catch (Exception e) {

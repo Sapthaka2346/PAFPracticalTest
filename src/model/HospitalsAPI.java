@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.User;
+import model.Hospital;
 
 /**
  * Servlet implementation class UsersAPI
  */
 @WebServlet("/UsersAPI")
-public class UsersAPI extends HttpServlet {
+public class HospitalsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	User userObj = new User();
+	Hospital userObj = new Hospital();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UsersAPI() {
+	public HospitalsAPI() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,9 +47,8 @@ public class UsersAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		String output = userObj.addUserDetails(request.getParameter("username"), request.getParameter("phoneNo"),
-				request.getParameter("age"), request.getParameter("address"), request.getParameter("gender"),
-				request.getParameter("email"));
+		String output = userObj.insertItem(request.getParameter("H_Name"), request.getParameter("H_Address"),
+				request.getParameter("H_City"), request.getParameter("H_phonenumber"), request.getParameter("H_Desc"));
 		response.getWriter().write(output);
 	}
 
@@ -60,8 +59,8 @@ public class UsersAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		String output = userObj.updateUserDetails(paras.get("hidUserIDSave").toString(), paras.get("username").toString(),
-				paras.get("phoneNo").toString(), paras.get("age").toString(), paras.get("address").toString(), paras.get("gender").toString(), paras.get("email").toString());
+		String output = userObj.updateItem(paras.get("hidHopsitalIDUpdate").toString(), paras.get("H_Name").toString(),
+				paras.get("H_Address").toString(), paras.get("H_City").toString(), paras.get("H_phonenumber").toString(), paras.get("H_Desc").toString());
 		response.getWriter().write(output);
 	}
 
@@ -72,7 +71,7 @@ public class UsersAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		 String output = userObj.deleteUsers(paras.get("user_id").toString());
+		 String output = userObj.deleteItem(paras.get("Hospital_id").toString());
 		response.getWriter().write(output);
 	}
 
