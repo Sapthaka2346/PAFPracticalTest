@@ -50,7 +50,7 @@ function onHospitalSaveComplete(response, status) {
 		$("#alertError").text("Unknown error while saving..");
 		$("#alertError").show();
 	}
-	$("#hidHopsitalIDSave").val("");
+	$("#hidHospitalIDSave").val("");
 	$("#formHospital")[0].reset();
 }
 
@@ -59,7 +59,7 @@ function onHospitalSaveComplete(response, status) {
 		$.ajax({
 			url : "HospitalsAPI",
 			type : "DELETE",
-			data : "Hospital_ID=" + $(this).data("HospitalID"),
+			data : "Hospital_ID=" + $(this).data("hospitalid"),
 			dataType : "text",
 			complete : function(response, status) {
 				onHospitalDeleteComplete(response.responseText, status);
