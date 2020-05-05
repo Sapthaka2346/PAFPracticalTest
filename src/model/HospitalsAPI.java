@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Hospital;
 
 /**
- * Servlet implementation class UsersAPI
+ * Servlet implementation class HospitalsAPI
  */
 @WebServlet("/HospitalsAPI")
 public class HospitalsAPI extends HttpServlet {
@@ -59,8 +59,8 @@ public class HospitalsAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		String output = userObj.updateItem(paras.get("hidHospitalIDSave").toString(), paras.get("H_Name").toString(),
-				paras.get("H_Address").toString(), paras.get("H_City").toString(), paras.get("H_phonenumber").toString(), paras.get("H_Desc").toString());
+		String output = userObj.updateItem(paras.get("hidHospitalIDSave").toString(), paras.get("H_Name").toString().replace("+"," "),
+				paras.get("H_Address").toString().replace("+"," ").replace("%",","), paras.get("H_City").toString().replace("+"," "), paras.get("H_phonenumber").toString().replace("+"," "), paras.get("H_Desc").toString().replace("+"," "));
 		response.getWriter().write(output);
 	}
 
