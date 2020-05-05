@@ -106,19 +106,19 @@ $(document).on(
 function validateItemForm() {
 	// HOSPITALNAME
 	if ($("#H_Name").val().trim() == "") {
-		return "Insert Hospital name.";
+		return "Insert the name of the hospital.";
 	}
 	// ADDRESS
 	if ($("#H_Address").val().trim() == "") {
-		return "Insert Address .";
+		return "Insert the Address of the hopsital.";
 	}
 	// CITY-------------------------------
 	if ($("#H_City").val().trim() == "") {
-		return "Insert City.";
+		return "Insert the city name of the hospital.";
 	}
 	// PHONE NUMBER------------------------
 	if ($("#H_phonenumber").val().trim() == "") {
-		return "Insert PhoneNumber.";
+		return "Insert the PhoneNumber of the hopsital.";
 	}
 	// is numerical value
 	var tmpPhone = $("#H_phonenumber").val().trim();
@@ -127,7 +127,7 @@ function validateItemForm() {
 	}
 	// DESC------------------------
 	if ($("#H_Desc").val().trim() == "") {
-		return "Insert Dscription.";
+		return "Insert Dscription about the hospital.";
 	}
 	return true;
 }
