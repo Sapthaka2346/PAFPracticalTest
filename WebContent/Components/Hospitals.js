@@ -95,7 +95,7 @@ $(document).on(
 		".btnUpdate",
 		function(event) {
 			$("#hidHospitalIDSave").val(
-					$(this).closest("tr").find('#hidHospitalIDUpdate').val());
+					$(this).closest("tr").find('#hidHopsitalIDUpdate').val());
 			$("#H_Name").val($(this).closest("tr").find('td:eq(0)').text());
 			$("#H_Address").val($(this).closest("tr").find('td:eq(1)').text());
 			$("#H_City").val($(this).closest("tr").find('td:eq(2)').text());
